@@ -33,7 +33,7 @@ export class Button implements IUiElement {
       this.text.x = this.x;
       this.text.y = this.y;
     });
-    eventbus.addEventListener("mouseClicked", ({ mouseX, mouseY }) =>
+    eventbus.addEventListener("touchEnded", ({ mouseX, mouseY }) =>
       this.checkClick(mouseX, mouseY)
     );
   }
