@@ -3,6 +3,8 @@ import type p5 from "p5";
 import { Player } from "../game-objects/player";
 import { IEnemyCollection } from "../game-objects/collections/IEnemyCollection";
 import { BulletStorm } from "../game-objects/collections/storm";
+import eventbus from "../util/eventbus";
+import { ScreenFactory, SCREEN_TYPE } from "./ScreenFactory";
 
 export class PlayScreen extends IScreen {
   private player: Player;
@@ -19,6 +21,12 @@ export class PlayScreen extends IScreen {
     sketch.push();
 
     this.enemyCollection.draw(sketch);
+    if (this.enemyCollection.intersects(sketch, this.player)) {
+      eventbus.emit(
+        "screenChange",
+        ScreenFactory.getScreenFor(SCREEN_TYPE.HOME)
+      );
+    }
     if (this.enemyCollection.isEnded) {
       this.enemyCollection = new BulletStorm(sketch);
     }

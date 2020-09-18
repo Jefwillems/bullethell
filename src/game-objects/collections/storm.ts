@@ -2,10 +2,11 @@ import type p5 from "p5";
 import { Trajectory } from "../../util/trajectory";
 import { Bullet } from "../bullet";
 import { IEnemy } from "../IEnemy";
+import { IGameObject } from "../IGameObject";
 import { IEnemyCollection } from "./IEnemyCollection";
 
 export class BulletStorm implements IEnemyCollection {
-  enemies: IEnemy[];
+  enemies: Bullet[];
 
   constructor(sketch: p5) {
     this.enemies = [];
@@ -22,6 +23,9 @@ export class BulletStorm implements IEnemyCollection {
         );
       }
     }
+  }
+  intersects(sketch: p5, obj: IGameObject): boolean {
+    return this.enemies.findIndex((e) => e.intersects(sketch, obj)) >= 1;
   }
 
   get isEnded(): boolean {
@@ -44,6 +48,8 @@ export class BulletStorm implements IEnemyCollection {
         );
       }
     });
-    this.enemies.forEach((e) => e.draw(sketch));
+    this.enemies.forEach((e) => {
+      e.draw(sketch);
+    });
   }
 }
