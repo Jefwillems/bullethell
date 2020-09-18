@@ -44,9 +44,9 @@ const multiply = (a: Vector, mult: number): Vector => {
 export class Trajectory {
   ended: boolean;
   position: Vector;
-  distanceToDest: number;
+  private distanceToDest: number;
 
-  constructor(private source: Vector, private destination: Vector) {
+  constructor(public source: Vector, public destination: Vector) {
     this.ended = false;
     this.position = source;
     this.distanceToDest = distance(this.source, this.destination);
