@@ -26,7 +26,7 @@ export class Bullet implements IEnemy {
     const dx = obj.x - this.x;
     const dy = obj.y - this.y;
     return (
-      sketch.sqrt(sketch.sq(dx) - sketch.sq(dy)) < this.size / 2 + obj.size / 2
+      sketch.sqrt(sketch.sq(dx) + sketch.sq(dy)) < this.size / 2 + obj.size / 2
     );
   }
 
