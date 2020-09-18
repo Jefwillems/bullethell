@@ -1,26 +1,47 @@
 import type p5 from "p5";
+import { Trajectory } from "../util/trajectory";
+import { IEnemy } from "./IEnemy";
+import { IGameObject } from "./IGameObject";
 
-export class Bullet {
-  x: number;
-  y: number;
+export class Bullet implements IEnemy {
+  size: number;
   speed: number;
+  trajectory: Trajectory;
 
-  constructor(sketch: p5) {
-    this.x = Math.random() * sketch.width;
-    this.y = Math.random() * sketch.height;
-    this.speed = 3;
+  constructor(size: number, speed: number, trajectory: Trajectory) {
+    this.size = size;
+    this.speed = speed;
+    this.trajectory = trajectory;
   }
 
-  update(sketch: p5) {
-    this.y -= this.speed;
-    if (this.y < 0) this.y = sketch.height;
+  get x() {
+    return this.trajectory.position.x;
   }
 
-  draw(sketch: p5) {
+  get y() {
+    return this.trajectory.position.y;
+  }
+
+  intersects(sketch: p5, obj: IGameObject): boolean {
+    const dx = obj.x - this.x;
+    const dy = obj.y - this.y;
+    return (
+      sketch.sqrt(sketch.sq(dx) - sketch.sq(dy)) < this.size / 2 + obj.size / 2
+    );
+  }
+
+  update(sketch: p5): void {
+    this.trajectory.step(this.speed);
+  }
+  draw(sketch: p5): void {
+    this.update(sketch);
     sketch.push();
+
+    sketch.fill("#126F99");
+    sketch.stroke("#333");
     sketch.ellipseMode(sketch.CENTER);
-    sketch.stroke(51);
-    sketch.ellipse(this.x, this.y, 25, 25);
+    sketch.ellipse(this.x, this.y, this.size);
+
     sketch.pop();
   }
 }

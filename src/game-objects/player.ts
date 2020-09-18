@@ -1,11 +1,11 @@
 import type p5 from "p5";
-import { Controller } from "./controller";
+import { Controller } from "../ui/Controller";
 import { IGameObject } from "./IGameObject";
 
 export class Player implements IGameObject {
-  private x: number;
-  private y: number;
-  private size: number;
+  x: number;
+  y: number;
+  size: number;
   private speed: number;
   private controller: Controller;
 

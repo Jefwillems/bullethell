@@ -2,6 +2,7 @@ import eventbus from "./util/eventbus";
 import { HomeScreen } from "./Screens/home";
 import type p5 from "p5";
 import { IScreen } from "./Screens/IScreen";
+import { PlayScreen } from "./Screens/play";
 
 export default class Game {
   private currentScreen: IScreen;
@@ -13,6 +14,11 @@ export default class Game {
    */
   initialize(sketch: p5) {
     this.currentScreen = new HomeScreen(sketch);
+
+    if (process.env.NODE_ENV === "development") {
+      this.currentScreen = new PlayScreen(sketch);
+    }
+
     eventbus.addEventListener(
       "screenChange",
       <T extends new (sketch: p5) => IScreen>(Screen: T) => {

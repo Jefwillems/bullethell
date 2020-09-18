@@ -1,6 +1,6 @@
-import { IGameObject } from "./IGameObject";
+import { IGameObject } from "../../game-objects/IGameObject";
 import type p5 from "p5";
-import eventbus from "../util/eventbus";
+import eventbus from "../../util/eventbus";
 
 interface Pointer {
   x: number;
@@ -15,7 +15,7 @@ interface ControllerPosition {
   pointer: Pointer;
 }
 
-export class Controller implements IGameObject {
+export class Controller {
   private position: ControllerPosition;
   private valueToSend: { dX: number; dY: number };
   private updateHandler: (
