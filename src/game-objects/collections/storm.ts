@@ -34,16 +34,16 @@ export class BulletStorm implements IEnemyCollection {
     throw new Error("Method not implemented.");
   }
   draw(sketch: p5): void {
-    this.enemies
-      .map((e: Bullet) => e.trajectory)
-      .forEach((traj) => {
+    this.enemies.forEach((e: Bullet) => {
+      if (!e.trajectory.ended) {
         sketch.line(
-          traj.source.x,
-          traj.source.y,
-          traj.destination.x,
-          traj.destination.y
+          e.x,
+          e.y,
+          e.trajectory.destination.x,
+          e.trajectory.destination.y
         );
-      });
+      }
+    });
     this.enemies.forEach((e) => e.draw(sketch));
   }
 }
