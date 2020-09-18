@@ -18,7 +18,7 @@ export class BulletStorm implements IEnemyCollection {
         const y = (sketch.height / 10) * j;
         const source = { x, y };
         const destination = { x: desX, y: Math.random() * sketch.height };
-        const speed = Math.random() * 2 + 5;
+        const speed = Math.random() * 2 + 8;
         this.enemies.push(
           new Bullet(25, speed, new Trajectory(source, destination))
         );
